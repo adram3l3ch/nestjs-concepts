@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { HelloService } from './hello.service.js';
 
 @Controller('hello')
@@ -16,7 +16,10 @@ export class HelloController {
   }
 
   @Get(':name/hbd')
-  getBdayWishes(@Param('name') name: string, @Query('age') age: string) {
+  getBdayWishes(
+    @Param('name') name: string,
+    @Query('age', ParseIntPipe) age: number,
+  ) {
     return this.helloService.getBdayWishes(name, age);
   }
 }
